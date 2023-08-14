@@ -10,7 +10,10 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AuthenticationService } from './authentication.service';
 import { SignInDto, SignUpDto } from './dto';
+import { Auth } from './decorators';
+import { AuthType } from './enums/auth-type.enum';
 
+@Auth(AuthType.None)
 @ApiTags('Authentication')
 @Controller('authentication')
 export class AuthenticationController {
@@ -28,6 +31,8 @@ export class AuthenticationController {
     @Body() signInDto: SignInDto,
   ) {
     return this.authService.signIn(signInDto);
+
+    //converts to cookie
     // const accessToken = await this.authService.signIn(signInDto);
     // response.cookie('accessToken', accessToken, {
     //   httpOnly: true,
