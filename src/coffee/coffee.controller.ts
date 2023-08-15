@@ -11,6 +11,8 @@ import { CoffeeService } from './coffee.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { ActiveUser } from 'src/iam/decorators/active-user.decorator';
+import { ActiveUserData } from 'src/iam/interfaces/active-user-data.interface';
 
 @ApiTags('Coffee')
 @Controller('coffee')
@@ -23,7 +25,7 @@ export class CoffeeController {
   }
 
   @Get()
-  findAll() {
+  findAll(@ActiveUser() user: ActiveUserData) {
     return this.coffeeService.findAll();
   }
 
