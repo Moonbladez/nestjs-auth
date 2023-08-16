@@ -9,7 +9,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AuthenticationService } from './authentication.service';
-import { SignInDto, SignUpDto } from './dto';
+import { RefreshTokenDto, SignInDto, SignUpDto } from './dto';
 import { Auth } from './decorators';
 import { AuthType } from './enums/auth-type.enum';
 
@@ -39,5 +39,11 @@ export class AuthenticationController {
     //   sameSite: 'none',
     //   secure: true,
     // });
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('refresh-token')
+  refreshToken(@Body() refreshToken: RefreshTokenDto) {
+    return this.authService.refreshToken(refreshToken);
   }
 }
